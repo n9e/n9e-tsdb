@@ -58,6 +58,20 @@ judge:
     indexMod:         index
 
 ```
+## 修改nginx配置
+原来的配置：
+```
+location /api/index {
+    proxy_pass http://n9e.server;
+}
+```
+
+改成：
+```
+location /api/index {
+    proxy_pass http://n9e.index;
+}
+```
 
 ### 编译
 ```
