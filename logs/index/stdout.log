@@ -1,5 +1,0 @@
-2021/04/09 14:38:34 map[agent:{0.0.0.0:2080  []} index:{0.0.0.0:8012 0.0.0.0:8013 [127.0.0.1]} server:{0.0.0.0:8000 0.0.0.0:8001 [127.0.0.1]} tsdb:{0.0.0.0:8010 0.0.0.0:8011 []}]
-index start, use configuration file: etc/index.yml
-runner.Cwd: /Users/ning/work/gopath/src/github.com/n9e/n9e-tsdb
-runner.Hostname: localhost
-address: module(agentd) configuration section not found
