@@ -1,7 +1,12 @@
 ## N9E-TSDB
 
 ### 接入方式
-v4版本的夜莺默认使用的是m3db，如果想使用n9e-tsdb，需要修改server.yml的配置如下
+下载安装包
+```
+wget 116.85.64.82/n9e-tsdb.tar.gz
+```
+
+需要修改server.yml的配置如下
 ```
 transfer:
   enable: true
@@ -58,6 +63,22 @@ judge:
     indexMod:         index
 
 ```
+
+在etc/address.yml中，添加tsdb和index的配置
+```
+tsdb:
+  http: 0.0.0.0:8010
+  rpc: 0.0.0.0:8011
+  addresses:
+    - 127.0.0.1
+
+index:
+  http: 0.0.0.0:8012
+  rpc: 0.0.0.0:8013
+  addresses:
+    - 127.0.0.1
+```
+
 ## 修改nginx配置
 原来的配置：
 ```
