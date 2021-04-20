@@ -95,6 +95,9 @@ location /api/index {
 ```
 
 ### 编译
+
+如果是x86架构的64位Linux，我们这里提供了编译好的：16.85.64.82/n9e-tsdb.tar.gz
+
 ```
 ./control build
 ```
