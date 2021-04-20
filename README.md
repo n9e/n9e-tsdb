@@ -82,16 +82,18 @@ index:
 ## 修改nginx配置
 原来的配置：
 ```
-location /api/index {
-    proxy_pass http://n9e.server;
-}
+   upstream n9e.index {
+       server 127.0.0.1:8000;
+       keepalive 60;
+   }
 ```
 
 改成：
 ```
-location /api/index {
-    proxy_pass http://n9e.index;
-}
+   upstream n9e.index {
+       server 127.0.0.1:8012;
+       keepalive 60;
+   }
 ```
 
 ### 编译
