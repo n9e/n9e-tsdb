@@ -321,10 +321,7 @@ func GetIndexByFullTags(c *gin.Context) {
 			tags := cache.GetAllCounter(tagPairs)
 
 			if len(tags) == 0 {
-				for counters, _ := range countersMap {
-					tagsList = append(tagsList, counters)
-					counterCount++
-				}
+				counterCount += len(countersMap)
 			} else {
 				for _, tag := range tags {
 					// 校验和 tag 有关的 counter 是否存在
@@ -334,7 +331,6 @@ func GetIndexByFullTags(c *gin.Context) {
 						logger.Debugf("can't found counters by key:%s metric:%v tags:%v\n", key, metric, tag)
 						continue
 					}
-
 					counterCount++
 					if _, exists := tagFilter[tag]; !exists {
 						tagsList = append(tagsList, tag)
@@ -343,7 +339,6 @@ func GetIndexByFullTags(c *gin.Context) {
 				}
 			}
 		}
-
 		resp.List = append(resp.List, GetIndexByFullTagsResp{
 			Endpoints: endpoints,
 			Nids:      nids,
@@ -353,7 +348,6 @@ func GetIndexByFullTags(c *gin.Context) {
 			DsType:    dsType,
 		})
 	}
-
 	resp.Count = counterCount
 	render.Data(c, resp, nil)
 }
