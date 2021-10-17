@@ -252,7 +252,6 @@ func GetIndexByFullTags(c *gin.Context) {
 
 	tagFilter := make(map[string]struct{})
 	tagsList := make([]string, 0)
-	counterCount := 0
 	var endpoints, nids []string
 	var mod string
 	var resp []IndexFullTagsResp
@@ -273,12 +272,14 @@ func GetIndexByFullTags(c *gin.Context) {
 				keys = append(keys, endpoint)
 			}
 		}
+		
 
 		metric := r.Metric
 		tagkv := r.Tagkv
 		step := 0
 		dsType := ""
-
+		counterCount := 0
+		
 		for _, key := range keys {
 			if key == "" {
 				logger.Debugf("invalid request: lack of key param:%v\n", r)
