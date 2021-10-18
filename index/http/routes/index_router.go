@@ -235,18 +235,14 @@ type GetIndexByFullTagsRecv struct {
 	Tagkv     []*cache.TagPair `json:"tagkv"`
 }
 
-type GetIndexByFullTagsResp struct {
+type IndexFullTagsResp struct {
 	Endpoints []string `json:"endpoints"`
 	Nids      []string `json:"nids"`
 	Metric    string   `json:"metric"`
 	Tags      []string `json:"tags"`
 	Step      int      `json:"step"`
 	DsType    string   `json:"dstype"`
-}
-
-type FullmathResp struct {
-	List  []GetIndexByFullTagsResp `json:"list"`
-	Count int                      `json:"count"`
+	Count     int      `json:"count"`
 }
 
 func GetIndexByFullTags(c *gin.Context) {
@@ -256,10 +252,9 @@ func GetIndexByFullTags(c *gin.Context) {
 
 	tagFilter := make(map[string]struct{})
 	tagsList := make([]string, 0)
-	counterCount := 0
 	var endpoints, nids []string
 	var mod string
-	var resp FullmathResp
+	var resp []IndexFullTagsResp
 
 	for _, r := range recv {
 		var keys []string
@@ -277,12 +272,14 @@ func GetIndexByFullTags(c *gin.Context) {
 				keys = append(keys, endpoint)
 			}
 		}
+		
 
 		metric := r.Metric
 		tagkv := r.Tagkv
 		step := 0
 		dsType := ""
-
+		counterCount := 0
+		
 		for _, key := range keys {
 			if key == "" {
 				logger.Debugf("invalid request: lack of key param:%v\n", r)
@@ -344,13 +341,14 @@ func GetIndexByFullTags(c *gin.Context) {
 			}
 		}
 
-		resp.List = append(resp.List, GetIndexByFullTagsResp{
+		resp = append(resp, IndexFullTagsResp{
 			Endpoints: endpoints,
 			Nids:      nids,
 			Metric:    r.Metric,
 			Tags:      tagsList,
 			Step:      step,
 			DsType:    dsType,
+			Count:     counterCount,
 		})
 	}
 
